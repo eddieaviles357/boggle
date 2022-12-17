@@ -22,11 +22,12 @@ ul {
     width: auto;
     height: auto;
 
-    border: 2px dashed black;
+    /* border: 2px dashed black; */
 }
 
 .wrapper {
-    width: 350px;
+    width: 360px;
+    min-width: 360px;
     margin: 0 auto;
 
     border: 2px dashed red;
@@ -49,6 +50,7 @@ ul {
     display: flex;
     justify-content: center;
 
+    min-width: 360px;
     }
 
 .word-form input {
@@ -77,9 +79,15 @@ ul {
     width: 150px;
     height: 35px;
 
+    background-color: darkgrey;
+
     border-radius: 6px;
 
     font-size: 20px;
 
     box-shadow: 5px 7px 0px 1px black;
+}
+
+.result {
+    
 }
