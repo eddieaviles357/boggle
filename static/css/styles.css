@@ -1,0 +1,85 @@
+*,
+*::after,
+*::before {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    background-color: blueviolet;
+}
+h1{
+    text-align: center;
+    margin: 20px;
+}
+ul {
+    list-style: none;
+}
+
+.game-board-container {
+    width: auto;
+    height: auto;
+
+    border: 2px dashed black;
+}
+
+.wrapper {
+    width: 350px;
+    margin: 0 auto;
+
+    border: 2px dashed red;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+
+}
+
+.letter {
+    padding: 5px;
+
+    font-size: 50px;
+}
+
+.word-form {
+    display: flex;
+    justify-content: center;
+
+    }
+
+.word-form input {
+    display: inline-block;
+
+    height: 35px;
+    width: 200px;
+
+    padding: 10px;
+
+    border-radius: 6px;
+
+    font-size: 20px;
+    text-align: right;
+
+    box-shadow: 5px 7px 0px 1px black;
+}
+
+.word-form input:focus-visible {
+    outline: 0;
+    background-color:bisque;
+}
+.word-form button {
+    display: inline-block;
+
+    width: 150px;
+    height: 35px;
+
+    border-radius: 6px;
+
+    font-size: 20px;
+
+    box-shadow: 5px 7px 0px 1px black;
+}

@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %} Boogle {% endblock %}
+
+{% block content %}
+
+<h1>Boogle Game</h1>
+<div class="game-board-container">
+    <div class="wrapper">
+        {% for row in game_board %}
+        <ul class="row">
+            {% for letter in row %}
+            <li class="letter">{{letter}}</li>
+            {% endfor %}
+        </ul>
+        {% endfor %}
+    </div>
+    <form class="word-form">
+        <div class="wrapper">
+            <input name="guess" id="guess" type="text" placeholder="enter word">
+            <button>Submit</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
