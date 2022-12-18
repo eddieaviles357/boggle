@@ -8,14 +8,17 @@
 
 html, body {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    background-color: blueviolet;
+    background-color: antiquewhite;
 }
 h1{
     text-align: center;
     margin: 20px;
+
+    font-size: 50px;
 }
 ul {
     list-style: none;
+    animation: show ease-in-out 1s;
 }
 
 .game-board-container {
@@ -29,6 +32,9 @@ ul {
     width: 360px;
     min-width: 360px;
     margin: 0 auto;
+
+    background-color: black;
+    color: white;
 
     border: 2px dashed red;
 }
@@ -44,6 +50,8 @@ ul {
     padding: 5px;
 
     font-size: 50px;
+    transition: all 1ms;
+    animation: tumble ease-in-out 1s infinite;
 }
 
 .word-form {
@@ -51,6 +59,7 @@ ul {
     justify-content: center;
 
     min-width: 360px;
+    
     }
 
 .word-form input {
@@ -88,6 +97,64 @@ ul {
     box-shadow: 5px 7px 0px 1px black;
 }
 
-.result {
+#result {
+    display: block;
+
+    width: 360px;
+    min-width: 360px;
+    height: 50px;
+    margin: 0 auto;
+    padding: 15px;
     
+    font-size: 16px;
+    text-align: center;
+
+    background-color: aqua;
+
+    border: 2px solid black;
+    border-radius: 6px;
+
+    box-shadow: 5px 7px 0px 1px black;
+
+    opacity: 0.9;
+
+    animation-name: show;
+    animation-timing-function: ease-in-out;
+    animation-duration: 1s;
+}
+
+@keyframes show {
+    0% {
+        opacity: 0;
+    }
+
+    50% {
+        opacity: .5;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes tumble {
+    0% {
+        transform: scale(1.0) translate(0px, 0px) rotate(0deg)
+    }
+
+    25% {
+        transform: scale(1.1) translate(1px, -1px) rotate(15deg)
+    }
+
+    50% {
+        transform: scale(0.95) translate(0px, 0px) rotate(0deg)
+    }
+
+    75% {
+        transform: scale(1.1) translate(-1px, 1px) rotate(-15deg)
+    }
+
+    100% {
+        transform: scale(1.0) translate(0px, 0px) rotate(0deg)
+    }
 }
