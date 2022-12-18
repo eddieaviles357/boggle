@@ -22,7 +22,6 @@ def home():
     """ Initialize game board and times played """
     session["game_board"] = boggle_game.make_board()
     session["played"] = session.get("played", 0) + 1
-    session["score"] = 0
     return render_template("index.html", game_board=session["game_board"])
 
 
@@ -37,8 +36,5 @@ def word_guessed():
     # is the word valid
     result = boggle_game.check_valid_word(board, user_guess)
     # ok, not-on-board, not-word
-    if result == "ok":
-        score = session["score"] + len(user_guess)
-        session["score"] = score
     # send json over to client with result of word submitted
-    return jsonify({"result": result, "score": score})
+    return jsonify({"result": result})
