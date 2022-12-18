@@ -1,24 +1,33 @@
 $(function() {
     const $guessInput = $('#guess')[0] // user guess input field
-    
-    const makeAjaxCall = async (guess) => {
+
+    // Makes an ajax call to our backend and responds with JSON object
+    const makeAjaxCall = async guess => {
         try {
-            res = await axios.post('/guess', { guess }) // submit guess to backend
-            console.log(res.data.result)
+            const {data} = await axios.post('/guess', { guess })
+            return data.result
         } catch (error) {
             throw new Error(`Somthing went wrong => message: ${error}`)
         }
     }
+    // populate results text content
+    const showResults = rslts => {
+        // $result.value = rslts
+        $('#result').html(rslts)
+    }
     
-    const handleUserGuess = (e) => {
+    // Handles form submission
+    const handleUserGuess = async e => {
         e.preventDefault() // prevent browser from redirecting to a new page
         guess = $guessInput.value // extract user guess
         $guessInput.value = '' // reset input value
     
-        makeAjaxCall(guess)
+        response = await makeAjaxCall(guess)
+        showResults(response)
     }
     
     $('.word-form').on('submit', handleUserGuess)
 
+    
 })
 
