@@ -1,6 +1,6 @@
 $(function() {
-    const $guessInput = $('#guess')[0] // user guess input field
-
+    const $guessInput = $('#guess')
+    const $score = $('.score')
     // Makes an ajax call to our backend and responds with JSON object
     const makeAjaxCall = async guess => {
         try {
@@ -11,19 +11,25 @@ $(function() {
         }
     }
     // populate results text content
-    const showResults = rslts => {
-        // $result.value = rslts
-        $('#result').html(rslts)
+    const showResults = (rslts, wordGuessed) => {
+        score = +($score.text()) // get score and cast to int
+        $('.result').text(rslts)
+
+        if (rslts == 'ok'){
+            score = score + wordGuessed.length
+        }
+        $score.text(score)
     }
     
     // Handles form submission
     const handleUserGuess = async e => {
         e.preventDefault() // prevent browser from redirecting to a new page
-        guess = $guessInput.value // extract user guess
-        $guessInput.value = '' // reset input value
-    
+        guess = $guessInput.val() // extract user guess
+        
         response = await makeAjaxCall(guess)
-        showResults(response)
+        showResults(response, guess)
+
+        $guessInput.val('') // reset input value
     }
     
     $('.word-form').on('submit', handleUserGuess)
