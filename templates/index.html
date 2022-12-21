@@ -6,7 +6,15 @@
 
 <h1>Boggle Game</h1>
 <hr>
+<a href="/" id="restart">Restart</a>
+<span class="high-score-wrapper">
+    High Score: 
+    <span id="high-score">{{ high_score }}</span>
+    Played:
+    <span id="times-played">{{ times_played }}</span>
+</span>
 <div class="game-board-container">
+    <div class="game-over hidden">Game Over</div>
     <div class="wrapper">
         {% for row in game_board %}
         <ul class="row">
@@ -23,6 +31,7 @@
         </div>
     </form>
     <div id="result-container">
+        <span class="timer">Timer: <span>60</span></span>
         <span class="result">Result</span>
         <span class="score">0</span>
     </div>
