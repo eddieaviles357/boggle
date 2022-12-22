@@ -1,27 +1,51 @@
-$(function() {
+// Game class
+class Game {
+    constructor(timer,score, gamesPlayed) {
+        this.$timer = timer
+        this.$score = score
+        this.$gamesPlayed = gamesPlayed
+    }
+    getTime() {
+        return +(this.$timer.text())
+    }
+    setTime(time) {
+        this.$timer.text(time)
+    }
+    getScore() {
+        return +(this.$score.text())
+    }
+    setScore(score) {
+        this.$score.text(score)
+    }
+    setGamesPlayed(amnt) {
+        this.$gamesPlayed.text(amnt)
+    }
+    isGameOver() {
+        return this.getTime() <= 0
+    }
+    static hide($ele) {
+        $ele.hide()
+    }
+}
+// Game class initialize
+const game = new Game($('.timer > span'),$('.score'), $('#times-played'))
+// $(function() {
     const $guessInput = $('#guess')
-    const $score = $('.score')
-    const $highScore = $('#high-score')
     const $result = $('.result')
-    const $timer = $('.timer > span')
     const $wrapper = $('.wrapper')
-    const $gameOver = $('.game-over')
-    const $timesPlayed = $('#times-played')
-    // const $highScore = $('#high-score')
 
-    const getScore = () => +($score.text())
-    const getTime = () => +($timer.text())
-    const updateElementText = ( $element, val ) => { $element.text(val) }
-    const hideElement = $element => { $element.hide() }
-    const isGameOver = () => getTime() <= 0
+
+    // gets called every second and updates the ui
     const updateTimer = async () => {
-        let time = getTime()
+        let time = game.getTime()
         time -= 1
-        $timer.text(time)
+        game.setTime(time)
         // stop timer when 0 is hit and end game
-        if (isGameOver()) { 
+        if (game.isGameOver()) { 
             clearInterval(intervalID)
-            let {score, gamesPlayed} = await gameOver()
+            // response object is not relevant {score, gamesPlayed}
+            // makes a call to the server when game is over and updates session cookies
+            await gameOver()
         }
     }
     
@@ -42,12 +66,12 @@ $(function() {
 
     const gameOver = async () => {
         try {
-            let score = getScore()
+            let score = game.getScore()
             const {data} = await axios.post('/game-over', {score})
-            hideElement($wrapper)
-            hideElement($gameOver)
-            updateElementText($highScore, data.score)
-            updateElementText($timesPlayed, data.gamesPlayed)
+            Game.hide($wrapper)
+            Game.hide($('.game-over'))
+            game.setScore(data.score)
+            game.setGamesPlayed(data.gamesPlayed)
             return data
         } catch (error) {
             throw new Error(`Something went wrong => message: ${error}`)
@@ -57,14 +81,14 @@ $(function() {
 
     // populate results text content
     const showResults = ({result, isDuplicate}, wordGuessed) => {
-        let score = getScore()
+        let score = game.getScore()
         $result.text(result)
 
         if (result == 'ok') { score = score + wordGuessed.length }
         if (isDuplicate) {
             $result.text("Word already used")
         }
-        updateElementText($score, score)
+        game.setScore(score)
     }
     
 
@@ -83,5 +107,5 @@ $(function() {
     }
     
     $('.word-form').on('submit', handleUserGuess)
-})
+// })
 
