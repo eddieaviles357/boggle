@@ -57,7 +57,7 @@ const game = new Game($('.timer > span'),$('.score'), $('#times-played'))
     // Makes an ajax call to our backend and responds with JSON object
     const guessAjaxCall = async guess => {
         try {
-            const {data} = await axios.post('/guess', { guess })
+            const {data} = await axios.get('/guess', { params: { guess } })
             return data
         } catch (error) {
             throw new Error(`Something went wrong => message: ${error}`)
