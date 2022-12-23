@@ -19,25 +19,26 @@ def home():
     times_played = session["played"] = session.get("played", 0)
     # highest score
     high_score = session["high_score"] = session.get("high_score", 0)
+    # duplicate words
+    session["words_used"] = {}
     return render_template("index.html",
                            game_board=game_board,
                            high_score=high_score,
                            times_played=times_played)
 
 
-@app.route("/guess", methods=["POST"])
+@app.route("/guess")
 def word_guessed():
     """ Checks guessed word if it is valid """
-
     # get user guess
-    user_guess = request.json["guess"]
+    user_guess = request.args.get("guess", "MAN")
     # get board cookie from client
     board = session["game_board"]
     # is the word valid
     result = boggle_game.check_valid_word(board, user_guess)
 
     # get duplicate words
-    duplicates = session.get("words_used", {})
+    duplicates = session["words_used"]
     is_word_used = user_guess in duplicates
     # valid word is dulicate will be used on client side so score won't get updated
     if is_word_used:
